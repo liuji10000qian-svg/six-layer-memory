@@ -1,0 +1,9 @@
+# OpenAI Agent Builder manifest for the six-layer-memory skill.
+# `$six-layer-memory` is the skill reference token used by the OpenAI runtime
+# to embed this skill's SKILL.md into the prompt. If you import this manifest
+# into a different platform, replace the token with whatever literal name that
+# platform uses to refer to this skill.
+interface:
+  display_name: "Six-Layer Memory"
+  short_description: "Clean reusable six-layer memory workflow"
+  default_prompt: "Use $six-layer-memory to design a clean, efficient persistent memory system for this agent or project."
