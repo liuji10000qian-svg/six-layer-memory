@@ -1,6 +1,6 @@
 ---
 name: six-layer-memory
-description: "Design, clean up, audit, or migrate persistent memory systems for AI agents and projects using a portable six-layer architecture: active, episodic, semantic, procedural, reflective, and preference memory. Use when the user asks for cross-session memory, agent memory layout, recall/write/compression rules, memory folder cleanup, or converting messy memory docs into a reusable skill or protocol. Platform-neutral by default; do not install or integrate into Claude, Codex, Cursor, or other agents unless explicitly asked."
+description: "Design, migrate, or audit portable six-layer agent memory: active, episodic, semantic, procedural, reflective and preference. Use for memory architecture or protocol changes; routine recall and saving follow the already-loaded memory entrypoint without loading this whole skill. Integrate into a specific agent only when explicitly requested."
 ---
 
 # Six-Layer Memory
@@ -45,7 +45,10 @@ Developed by the AceiClaw site owner（AceiClaw 站长开发）.
 - Load at most 5 full memory records per recall pass; L6 preference summaries may be inline.
 - Single records stay focused and usually under 3,000 Chinese characters.
 - Each record has tags, a short summary, confidence, timestamps, and a clear layer.
-- Contradictions lower confidence on stale records instead of silently overwriting history.
+- Contradictions keep source, date, scope and replacement links; exclude unresolved conflicts and superseded records from automatic recall.
+- Apply only user-scoped preferences globally. Project/workspace memories require the matching scope.
+- TTL marks review priority; never treat age or low recall count alone as deletion authority.
+- Prefer deterministic indexing after successful writes. Reads must not trigger extra model calls, counter writes, reindexing or background scans.
 - A cleanup pass removes empty folders, placeholder examples, duplicate docs, and agent-specific install code unless explicitly needed.
 
 ## Out of Scope
