@@ -70,6 +70,12 @@ title: One sentence title
 tags: [tag1, tag2, tag3]
 links: []
 confidence: high|medium|low
+status: active|needs_review|superseded
+scope: user|workspace|project
+scope_key: optional-project-or-workspace-id
+source_type: user_statement|verified_observation|historical_import|model_inference
+verified_at: YYYY-MM-DD
+supersedes: optional-previous-id
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 recall_count: 0
@@ -192,3 +198,12 @@ Use relations in `links` or `_meta/graph.md` only when they help reasoning:
 - `requires`: depends on another record to be understood.
 
 Prefer few meaningful links over dense graph noise.
+
+## Recall Integrity
+
+- Records are the source of truth; indexes and catalogs are rebuildable views, never copies of whole bodies.
+- Keep stable IDs when updating the same fact. Identical bodies do not need new records. Similar wording is only a review candidate, not sufficient grounds to merge different facts or scopes.
+- Every durable claim needs a source and date. Model inference alone cannot become a high-confidence user preference.
+- Only active, supported user-scope preferences are global. Older unscoped imports remain searchable references until verified.
+- A replacement records `supersedes`; the old record remains traceable as `superseded`. Unresolved duplicate IDs and conflicting claims are withheld from automatic hot recall.
+- If the full summary catalog outgrows the hot index, keep the hot index small and point to a searchable complete catalog. A missing hot-index entry does not mean the memory was deleted.
